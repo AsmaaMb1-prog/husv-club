@@ -1,7 +1,7 @@
 const teamMembers = [
     { name: "عبدالله الزبيدي", role: "رئيس النادي", whatsapp: "https://wa.me/967776212233" },
     { name: "صلاح الدين عبد الوهاب", role: "نائب الرئيس"},
-    { name: "فاطمة باثالث", role: "الأمين العام", whatsapp: "https://wa.me/967737790274" },
+    { name: "فاطمة باثلاث", role: "الأمين العام", whatsapp: "https://wa.me/967737790274" },
     { name: "عبير كليم", role: "مسؤولة العلاقات", whatsapp: "https://wa.me/967730282220" },
     { name: "صفية بونمي", role: "نائبة مسؤولة العلاقات" },
     { name: "حمزة بالسود", role: "مسؤول المالية", whatsapp: "https://wa.me/967716451088" },
