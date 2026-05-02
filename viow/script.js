@@ -11,6 +11,8 @@ const teamMembers = [
     { name: "مريم بن بريك", role: "مسؤول الإعلام" },
     { name: "منى لحمدي", role: "نائبة مسؤول الإعلام"},
     { name: "عبدالله صبيح", role: "مسؤول التنظيم" },
+     { name: "فاطمة بن بريك", role: "مسؤول التصميم" },
+    
 ];
 
 // Function to render team members
