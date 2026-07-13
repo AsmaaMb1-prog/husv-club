@@ -9,6 +9,284 @@
     --font-main: 'Tajawal', sans-serif;
 }
 
+/* هنا تبدأ الإضافة الجديدة الجميلة في حصادي كشكل نبتة لطيفة */
+:root{
+  --hasadi-text:#26332b;          /* لون النص الافتراضي لروابط القائمة عندك — عدّله ليطابق موقعك */
+  --hasadi-green:#18a558;
+  --hasadi-green-dark:#0e7a41;
+  --hasadi-green-soft:rgba(24,165,88,0.08);
+  --hasadi-green-soft-strong:rgba(24,165,88,0.14);
+  --hasadi-glow:rgba(24,165,88,0.45);
+  --hasadi-sprout-shift:0px;       /* عدّل بالبكسل لو الساق مو بالظبط فوق الألف بخطكم */
+}
+
+.hasadi{
+  position:relative;
+  display:inline-block;
+  isolation:isolate;
+  border:none;
+  cursor:pointer;
+  font:inherit;
+  text-decoration:none;
+  background-color:var(--hasadi-green-soft);
+  color:var(--hasadi-text);
+  padding:9px 20px;
+  border-radius:999px;
+  transition:color .4s ease, background-color .4s ease, box-shadow .5s ease, transform .2s ease;
+}
+.hasadi:hover{
+  background-color:var(--hasadi-green-soft-strong);
+  transform:translateY(-1px);
+}
+.hasadi:focus-visible{
+  outline:2px solid var(--hasadi-green-dark);
+  outline-offset:2px;
+}
+
+/* غلاف مقصوص للمعان — منفصل عن الزر حتى تقدر ساق النبتة تطلع فوق الحدود */
+.hasadi-clip{
+  position:absolute;
+  inset:0;
+  overflow:hidden;
+  border-radius:inherit;
+  z-index:0;
+  pointer-events:none;
+}
+.hasadi-clip::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(115deg, transparent 35%, rgba(255,255,255,0.75) 50%, transparent 65%);
+  transform:translateX(-130%);
+  transition:transform .8s ease;
+}
+.hasadi:hover .hasadi-clip::before{
+  transform:translateX(130%);
+}
+
+.hasadi__label{ position:relative; z-index:2; }
+
+/* حالة "مُفعّل" بعد الضغط (تبقى مثبتة كأنها الصفحة الحالية) */
+.hasadi.is-active{
+  color:var(--hasadi-green-dark);
+  background-color:var(--hasadi-green-soft-strong);
+  box-shadow:0 0 0 1px rgba(24,165,88,0.18), 0 4px 18px -4px var(--hasadi-glow);
+}
+
+/* توهج/نبضة تنبعث لحظة الضغط */
+.hasadi.is-pulsing::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:inherit;
+  animation:hasadiPulse .7s ease-out;
+  pointer-events:none;
+  z-index:0;
+}
+@keyframes hasadiPulse{
+  0%   { box-shadow:0 0 0 0 rgba(24,165,88,0.55); opacity:1; }
+  70%  { box-shadow:0 0 0 16px rgba(24,165,88,0); opacity:.6; }
+  100% { box-shadow:0 0 0 22px rgba(24,165,88,0); opacity:0; }
+}
+
+/* ساق النبتة — الألف هو الحرف الأوسط في "حصادي" (3 من 5) */
+.hasadi__sprout{
+  position:absolute;
+  bottom:100%;
+  left:calc(50% + var(--hasadi-sprout-shift));
+  width:16px;
+  height:22px;
+  transform:translateX(-50%) translateY(6px) scale(.5);
+  transform-origin:bottom center;
+  opacity:0;
+  transition:transform .5s cubic-bezier(.34,1.56,.64,1), opacity .35s ease;
+  pointer-events:none;
+  z-index:3;
+}
+.hasadi:hover .hasadi__sprout,
+.hasadi.is-active .hasadi__sprout{
+  transform:translateX(-50%) translateY(-2px) scale(1);
+  opacity:1;
+}
+.hasadi__sprout .stem{
+  fill:none;
+  stroke:var(--hasadi-green-dark);
+  stroke-width:1.6;
+  stroke-linecap:round;
+}
+.hasadi__sprout .leaf{
+  fill:var(--hasadi-green);
+  opacity:0;
+  transform:scale(0);
+  transform-box:fill-box;
+  transform-origin:center bottom;
+  transition:transform .4s ease, opacity .3s ease;
+}
+.hasadi__sprout .leaf-r{ transition-delay:.15s; }
+.hasadi__sprout .leaf-l{ transition-delay:.28s; }
+.hasadi:hover .hasadi__sprout .leaf,
+.hasadi.is-active .hasadi__sprout .leaf{
+  transform:scale(1);
+  opacity:1;
+}
+
+@media (prefers-reduced-motion: reduce){
+  .hasadi-clip::before,
+  .hasadi__sprout,
+  .hasadi__sprout .leaf{ animation:none; transition:none; }
+}
+
+/* هنا تنتهي الإضافة الجديدة الجميلة في حصادي كشكل نبتة لطيفة */
+
+/* ضبط اتجاه العرض للقسم بالكامل كونه لغة عربية */
+#activities {
+    direction: rtl;
+    padding: 60px 0;
+}
+
+/* حاوي السلايدر الرئيسي */
+.projects-carousel-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 40px;
+}
+
+/* حاوية المشاهدة المقصوصة لحركة السلايدر */
+.projects-viewport {
+    overflow: hidden;
+    width: 100%;
+    padding: 15px 5px;
+}
+
+/* مسار البطاقات المرن */
+.projects-track {
+    display: flex;
+    gap: 20px;
+    transition: transform 0.4s ease-in-out;
+    width: 100%;
+}
+
+/* تنسيق البطاقة الفردية بشكل مينيماليست فاخر وبأبعاد متناسقة */
+.project-card {
+    min-width: calc(33.333% - 14px); /* لكي يظهر 3 كروت بالضبط على الشاشات الكبيرة */
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(123, 44, 191, 0.04);
+    border: 1px solid rgba(123, 44, 191, 0.08);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.project-card .card-img img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover; /* لضمان عدم تشوه صور الأنشطة */
+}
+
+/* تصميم الأسهم الاحترافية للكمبيوتر واللابتوب */
+.carousel-arrow {
+    background: #7b2cbf; /* البنفسجي المعتمد للنادي ليعطي لمسة حيوية */
+    color: #ffffff;
+    border: none;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(123, 44, 191, 0.2);
+}
+
+.carousel-arrow:hover {
+    background: #5a189a;
+    transform: translateY(-50%) scale(1.08);
+}
+
+.arrow-right { right: -5px; } /* سهم السابق يمين */
+.arrow-left { left: -5px; }  /* سهم التالي يسار */
+
+/* زر عرض المزيد للهواتف */
+.load-more-wrapper {
+    text-align: center;
+    margin-top: 30px;
+}
+
+#loadMoreBtn {
+    display: none; /* مخفي افتراضياً على شاشات الكمبيوتر واللابتوب والأيباد */
+    background: linear-gradient(135deg, #7b2cbf, #9d4edd);
+    color: #fff;
+    border: none;
+    padding: 12px 35px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 25px;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(123, 44, 191, 0.25);
+    transition: transform 0.2s;
+}
+
+#loadMoreBtn:hover {
+    transform: scale(1.03);
+}
+
+/* أنيميشن ناعم لظهور الكروت على الموبايل عند الضغط على الزر */
+.fade-in-card {
+    animation: fadeIn 0.5s ease forwards;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ================= شاشات التابلت والأيباد المتوسطة ================= */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .project-card {
+        min-width: calc(50% - 10px); /* يظهر كرتين على الأيباد لتناسق المساحة */
+    }
+}
+
+/* ================= شاشات الهواتف والموبايلات الجوالة ================= */
+@media (max-width: 768px) {
+    /* إخفاء الأسهم تماماً على الموبايل */
+    .carousel-arrow { display: none ; }
+
+    /* إلغاء الـ Flex والسلايدر الأفقي وتحويله لعمودي مرتب */
+    .projects-carousel-wrapper {
+        padding: 0 15px;
+    }
+    
+    .projects-track {
+        display: grid;
+        grid-template-columns: 1fr; /* عرض كرت واحد ممتد بالكامل */
+        gap: 20px;
+        transform: none ; /* تعطيل تأثير الـ JS للحركة الأفقية */
+    }
+
+    .project-card {
+        min-width: 100%;
+    }
+
+    /* إخفاء الأعمال الخمسة الجديدة كلياً في البداية على الموبايل */
+    /* .extra-project {
+        display: none;
+    } */
+
+    /* إظهار زر "عرض المزيد من الأعمال" المخصص للهواتف */
+    #loadMoreBtn {
+        display: inline-block;
+    }
+}
 
 /* التنسيق العام */
 * {
@@ -246,11 +524,93 @@ nav a:hover { color: var(--secondary); }
 .stat-item p { font-size: 1.1rem; opacity: 0.9; }
 
 /* Activities / Cards */
-.projects-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
+
+/* -- سلايدر الأعمال (ديسكتوب / لابتوب / آيباد) -- */
+.projects-carousel-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 15px;
 }
+
+.projects-viewport {
+    overflow: hidden;
+    width: 100%;
+    flex: 1;
+}
+
+.projects-track {
+    display: flex;
+    gap: 30px;
+    transition: transform 0.5s ease;
+}
+
+.projects-track .project-card {
+    flex: 0 0 calc(33.333% - 20px);
+    min-width: 0;
+}
+
+.carousel-arrow {
+    flex-shrink: 0;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    border: 2px solid var(--primary);
+    background: var(--white);
+    color: var(--primary);
+    font-size: 1.15rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.3s;
+}
+
+.carousel-arrow:hover:not(:disabled) {
+    background: var(--primary);
+    color: var(--white);
+    transform: scale(1.08);
+}
+
+.carousel-arrow:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+}
+
+/* -- زر عرض المزيد (جوال فقط) -- */
+.load-more-wrapper {
+    display: none;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+.load-more-wrapper .btn-primary {
+    cursor: pointer;
+    font-family: var(--font-main);
+    font-size: 1rem;
+}
+
+/* -- صورة بديلة عند عدم توفر صورة العمل -- */
+.card-img {
+    position: relative;
+}
+
+.card-img.img-fallback {
+    height: 220px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+}
+
+.card-img.img-fallback::after {
+    content: '📷 أضيفي صورة العمل هنا';
+    color: var(--white);
+    font-weight: 700;
+    font-size: 0.95rem;
+    text-align: center;
+    padding: 0 20px;
+}
+
 .project-card {
     background: var(--white);
     border-radius: 15px;
@@ -509,8 +869,8 @@ nav a:hover { color: var(--secondary); }
         height: 280px;
     }
     
-    .projects-grid {
-        grid-template-columns: repeat(2, 1fr);
+    .projects-track .project-card {
+        flex: 0 0 calc(50% - 15px);
     }
     
     .stats-grid {
@@ -642,6 +1002,15 @@ footer { background: #1a1a1a; color: #ccc; padding: 60px 0 30px; }
     
     .timeline-item { border-right: none; border-top: 3px solid var(--secondary); padding-right: 0; padding-top: 20px; }
     .timeline-item::before { right: auto; top: -9px; left: 0; }
+    
+    /* الجوال: إخفاء الأسهم، عرض البطاقات بشكل عمودي، وإظهار زر "عرض المزيد" */
+    .carousel-arrow { display: none; }
+    .projects-track {
+        flex-wrap: wrap;
+        transform: none !important;
+    }
+    .projects-track .project-card { flex: 0 0 100%; }
+    .load-more-wrapper { display: flex; }
     
     /* Fix for About Us section - stack images vertically on mobile */
     .about-gallery {
