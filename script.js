@@ -370,9 +370,9 @@ document.addEventListener("DOMContentLoaded", function () {
    ================================================================ */
 
 (function () {
-  // 1) عدّل هذين السطرين ببيانات مشروعك في Supabase (Settings > API)
-  const SUPABASE_URL = 'https://YOUR-PROJECT-REF.supabase.co';
-  const SUPABASE_ANON_KEY = 'YOUR-ANON-PUBLIC-KEY';
+  // 1) Supabase (Settings > API)
+  const SUPABASE_URL = 'https://dupgiuogkyqjabnwsotg.supabase.co';
+  const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR1cGdpdW9na3lxamFibndzb3RnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM0NDQ1NTQsImV4cCI6MjA5OTAyMDU1NH0.hqbrTiuZB5D890WIw4AitAoVVw-ifD-ISQCkvRWqtWs';
 
   const { createClient } = supabase;
   const db = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
