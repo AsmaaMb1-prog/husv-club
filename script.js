@@ -554,46 +554,46 @@ document.addEventListener('DOMContentLoaded', () => {
 // ══════════════════════════════════════════════
 // ربط عدادات "أثرنا" بقاعدة البيانات - HUSV
 // ══════════════════════════════════════════════
-async function fetchClubStats() {
-  try {
-    const SB_URL = 'https://dupgiuogkyqjabnwsotg.supabase.co';
-    const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR1cGdpdW9na3lxamFibndzb3RnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM0NDQ1NTQsImV4cCI6MjA5OTAyMDU1NH0.hqbrTiuZB5D890WIw4AitAoVVw-ifD-ISQCkvRWqtWs';
+// async function fetchClubStats() {
+//   try {
+//     const SB_URL = 'https://dupgiuogkyqjabnwsotg.supabase.co';
+//     const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR1cGdpdW9na3lxamFibndzb3RnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM0NDQ1NTQsImV4cCI6MjA5OTAyMDU1NH0.hqbrTiuZB5D890WIw4AitAoVVw-ifD-ISQCkvRWqtWs';
 
-    const res = await fetch(`${SB_URL}/rest/v1/rpc/get_club_public_stats`, {
-      method: 'POST',
-      headers: {
-        'apikey': SB_KEY,
-        'Authorization': `Bearer ${SB_KEY}`,
-        'Content-Type': 'application/json'
-      },
-      body: '{}'
-    });
+//     const res = await fetch(`${SB_URL}/rest/v1/rpc/get_club_public_stats`, {
+//       method: 'POST',
+//       headers: {
+//         'apikey': SB_KEY,
+//         'Authorization': `Bearer ${SB_KEY}`,
+//         'Content-Type': 'application/json'
+//       },
+//       body: '{}'
+//     });
 
-    if (!res.ok) return;
-    const data = await res.json();
+//     if (!res.ok) return;
+//     const data = await res.json();
 
-    document.querySelectorAll('.counter[data-stat]').forEach(el => {
-      const val = data[el.dataset.stat];
-      if (!val || val <= 0) return;
+//     document.querySelectorAll('.counter[data-stat]').forEach(el => {
+//       const val = data[el.dataset.stat];
+//       if (!val || val <= 0) return;
 
-      const target = Math.round(val);
-      el.dataset.target = target;
+//       const target = Math.round(val);
+//       el.dataset.target = target;
 
-      // أعيدي تشغيل الأنيميشن بالقيمة الحقيقية بغض النظر عن التوقيت
-      el.textContent = '0';
-      let current = 0;
-      const speed = target > 1000 ? 20 : 50;
-      const timer = setInterval(() => {
-        const inc = Math.ceil(target / speed);
-        current = Math.min(current + inc, target);
-        el.textContent = current;
-        if (current >= target) clearInterval(timer);
-      }, 30);
-    });
+//       // أعيدي تشغيل الأنيميشن بالقيمة الحقيقية بغض النظر عن التوقيت
+//       el.textContent = '0';
+//       let current = 0;
+//       const speed = target > 1000 ? 20 : 50;
+//       const timer = setInterval(() => {
+//         const inc = Math.ceil(target / speed);
+//         current = Math.min(current + inc, target);
+//         el.textContent = current;
+//         if (current >= target) clearInterval(timer);
+//       }, 30);
+//     });
 
-  } catch (e) {
-    console.warn('HUSV stats:', e);
-  }
-}
+//   } catch (e) {
+//     console.warn('HUSV stats:', e);
+//   }
+// }
 
-fetchClubStats();
+// fetchClubStats();
