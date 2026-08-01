@@ -574,7 +574,21 @@ async function fetchClubStats() {
 
     document.querySelectorAll('.counter[data-stat]').forEach(el => {
       const val = data[el.dataset.stat];
-      if (val !== undefined) el.dataset.target = Math.round(val);
+      if (!val || val <= 0) return;
+
+      const target = Math.round(val);
+      el.dataset.target = target;
+
+      // أعيدي تشغيل الأنيميشن بالقيمة الحقيقية بغض النظر عن التوقيت
+      el.textContent = '0';
+      let current = 0;
+      const speed = target > 1000 ? 20 : 50;
+      const timer = setInterval(() => {
+        const inc = Math.ceil(target / speed);
+        current = Math.min(current + inc, target);
+        el.textContent = current;
+        if (current >= target) clearInterval(timer);
+      }, 30);
     });
 
   } catch (e) {
